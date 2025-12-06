@@ -23,7 +23,7 @@ python main.py
 1. **Breakout (打磚塊)** ✅ - Break all bricks with your paddle
 2. **Snake (貪吃蛇)** ✅ - Classic snake game
 3. **Pong (乒乓球)** ✅ - Two-player paddle game
-4. Space Invaders - Shoot alien invaders
+4. **Space Invaders (太空侵略者)** ✅ - Shoot alien invaders
 5. Tetris - Falling blocks puzzle
 6. Pac-Man - Maze chase game
 7. Asteroids - Space shooter

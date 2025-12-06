@@ -11,7 +11,7 @@ GAMES = [
     {"id": 1, "name": "Breakout (打磚塊)", "status": "✅", "file": "game_001_breakout"},
     {"id": 2, "name": "Snake (貪吃蛇)", "status": "✅", "file": "game_002_snake"},
     {"id": 3, "name": "Pong (乒乓球)", "status": "✅", "file": "game_003_pong"},
-    {"id": 4, "name": "Space Invaders", "status": "⏳", "file": "game_004_space_invaders"},
+    {"id": 4, "name": "Space Invaders (太空侵略者)", "status": "✅", "file": "game_004_space_invaders"},
     {"id": 5, "name": "Tetris", "status": "⏳", "file": "game_005_tetris"},
     {"id": 6, "name": "Pac-Man", "status": "⏳", "file": "game_006_pacman"},
     {"id": 7, "name": "Asteroids", "status": "⏳", "file": "game_007_asteroids"},
