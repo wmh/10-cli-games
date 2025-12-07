@@ -79,21 +79,25 @@ def run_game(game):
 def main_menu(stdscr):
     """Main menu loop with cursor navigation"""
     curses.curs_set(0)  # Hide cursor
+    stdscr.nodelay(0)  # Wait for input (prevent flickering)
     curses.init_pair(1, curses.COLOR_CYAN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
     
     selected_idx = 0
+    total_games = len(GAMES)
     
     while True:
         draw_menu(stdscr, selected_idx)
         
         key = stdscr.getch()
         
-        if key == curses.KEY_UP and selected_idx > 0:
-            selected_idx -= 1
-        elif key == curses.KEY_DOWN and selected_idx < len(GAMES) - 1:
-            selected_idx += 1
+        if key == curses.KEY_UP:
+            # Wrap around: from first to last
+            selected_idx = (selected_idx - 1) % total_games
+        elif key == curses.KEY_DOWN:
+            # Wrap around: from last to first
+            selected_idx = (selected_idx + 1) % total_games
         elif key == ord('\n') or key == ord(' '):
             # Enter pressed - run game
             game = GAMES[selected_idx]
@@ -102,6 +106,7 @@ def main_menu(stdscr):
                 run_game(game)
                 stdscr = curses.initscr()  # Reinitialize
                 curses.curs_set(0)
+                stdscr.nodelay(0)
         elif key == ord('q') or key == ord('Q'):
             break
 
