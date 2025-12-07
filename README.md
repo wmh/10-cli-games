@@ -37,8 +37,6 @@ python main.py
 
 These games were carefully selected because they:
 - ✅ Work perfectly in text-based environments
-99. Time Machine - Time travel
-100. Game of Life+ - Enhanced cellular automata
 
 ## 🛠️ Tech Stack
 - Python 3.8+ (built-in modules)
