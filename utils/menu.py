@@ -1,11 +1,7 @@
-"""Menu system for game selection"""
-from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
-from rich.text import Text
-import os
-
-console = Console()
+"""Menu system for game selection with cursor navigation"""
+import curses
+import subprocess
+import sys
 
 GAMES = [
     {"id": 1, "name": "Breakout (打磚塊)", "status": "✅", "file": "game_001_breakout"},
@@ -14,80 +10,104 @@ GAMES = [
     {"id": 4, "name": "Space Invaders (太空侵略者)", "status": "✅", "file": "game_004_space_invaders"},
     {"id": 5, "name": "Tetris (俄羅斯方塊)", "status": "✅", "file": "game_005_tetris"},
     {"id": 6, "name": "Pac-Man (小精靈)", "status": "✅", "file": "game_006_pacman"},
-    {"id": 7, "name": "Asteroids", "status": "⏳", "file": "game_007_asteroids"},
-    {"id": 8, "name": "2048", "status": "⏳", "file": "game_008_2048"},
-    {"id": 9, "name": "Minesweeper", "status": "⏳", "file": "game_009_minesweeper"},
-    {"id": 10, "name": "Sudoku", "status": "⏳", "file": "game_010_sudoku"},
-    # Add more games as they are created
+    {"id": 7, "name": "2048", "status": "⏳", "file": "game_007_2048"},
+    {"id": 8, "name": "Minesweeper (踩地雷)", "status": "⏳", "file": "game_008_minesweeper"},
+    {"id": 9, "name": "Wordle (猜單字)", "status": "⏳", "file": "game_009_wordle"},
+    {"id": 10, "name": "Sokoban (推箱子)", "status": "⏳", "file": "game_010_sokoban"},
 ]
 
-# Generate full list of 100 games
-for i in range(11, 101):
-    GAMES.append({
-        "id": i,
-        "name": f"Game {i} (Coming Soon)",
-        "status": "⏳",
-        "file": f"game_{i:03d}_placeholder"
-    })
-
-def clear_screen():
-    """Clear the terminal screen"""
-    os.system('clear' if os.name != 'nt' else 'cls')
-
-def display_header():
-    """Display the game header"""
-    title = Text("🎮 100 CLI GAMES CHALLENGE 🎮", style="bold magenta", justify="center")
-    subtitle = Text("One game per day for 100 days!", style="italic cyan", justify="center")
-    header = Panel(
-        Text.assemble(title, "\n", subtitle),
-        border_style="bright_blue",
-        padding=(1, 2)
-    )
-    console.print(header)
-
-def display_games_table(page=0, per_page=20):
-    """Display games in a paginated table"""
-    start_idx = page * per_page
-    end_idx = min(start_idx + per_page, len(GAMES))
+def draw_menu(stdscr, selected_idx):
+    """Draw the menu with cursor selection"""
+    stdscr.clear()
+    h, w = stdscr.getmaxyx()
     
-    table = Table(title=f"Games {start_idx + 1}-{end_idx} of {len(GAMES)}", 
-                  show_header=True, header_style="bold yellow")
+    # Header
+    title = "🎮 10 CLI GAMES COLLECTION 🎮"
+    subtitle = "Quality over Quantity!"
     
-    table.add_column("ID", style="cyan", width=5, justify="right")
-    table.add_column("Game Name", style="white", width=35)
-    table.add_column("Status", style="green", width=8, justify="center")
+    try:
+        stdscr.addstr(2, (w - len(title)) // 2, title, curses.A_BOLD)
+        stdscr.addstr(3, (w - len(subtitle)) // 2, subtitle)
+        
+        # Progress
+        progress = f"Progress: 6/10 Games (60%)"
+        stdscr.addstr(4, (w - len(progress)) // 2, progress)
+        
+        # Separator
+        stdscr.addstr(5, 2, "─" * (w - 4))
+        
+        # Games list
+        start_y = 7
+        for idx, game in enumerate(GAMES):
+            y = start_y + idx
+            if y >= h - 4:
+                break
+            
+            # Format game line
+            game_line = f" {game['id']:2d}. {game['name']:<40} {game['status']}"
+            
+            # Highlight selected item
+            if idx == selected_idx:
+                stdscr.addstr(y, 4, "▶", curses.A_BOLD)
+                stdscr.addstr(y, 6, game_line, curses.A_REVERSE | curses.A_BOLD)
+            else:
+                stdscr.addstr(y, 6, game_line)
+        
+        # Footer instructions
+        instructions = "↑↓ Navigate | ENTER Select | Q Quit"
+        stdscr.addstr(h - 2, (w - len(instructions)) // 2, instructions, curses.A_DIM)
+        
+    except curses.error:
+        pass
     
-    for game in GAMES[start_idx:end_idx]:
-        status_style = "green" if game["status"] == "✅" else "yellow"
-        table.add_row(
-            str(game["id"]),
-            game["name"],
-            Text(game["status"], style=status_style)
-        )
-    
-    console.print(table)
+    stdscr.refresh()
 
-def display_menu():
-    """Display the main menu"""
-    clear_screen()
-    display_header()
-    console.print()
-    display_games_table(page=0, per_page=20)
-    console.print()
+def run_game(game):
+    """Run the selected game"""
+    if game['status'] != '✅':
+        return False
     
-    menu_text = """
-[yellow]Commands:[/yellow]
-  [cyan]1-100[/cyan]  - Play a game by number
-  [cyan]n[/cyan]      - Next page
-  [cyan]p[/cyan]      - Previous page
-  [cyan]l[/cyan]      - List all games
-  [cyan]q[/cyan]      - Quit
-    """
-    console.print(Panel(menu_text, border_style="green", padding=(0, 2)))
+    try:
+        # Run the game in a subprocess
+        subprocess.run([sys.executable, f"games/{game['file']}.py"])
+        return True
+    except FileNotFoundError:
+        return False
+    except Exception:
+        return False
 
-def get_game_by_id(game_id):
-    """Get game information by ID"""
-    for game in GAMES:
-        if game["id"] == game_id:
-            return game
-    return None
+def main_menu(stdscr):
+    """Main menu loop with cursor navigation"""
+    curses.curs_set(0)  # Hide cursor
+    curses.init_pair(1, curses.COLOR_CYAN, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
+    
+    selected_idx = 0
+    
+    while True:
+        draw_menu(stdscr, selected_idx)
+        
+        key = stdscr.getch()
+        
+        if key == curses.KEY_UP and selected_idx > 0:
+            selected_idx -= 1
+        elif key == curses.KEY_DOWN and selected_idx < len(GAMES) - 1:
+            selected_idx += 1
+        elif key == ord('\n') or key == ord(' '):
+            # Enter pressed - run game
+            game = GAMES[selected_idx]
+            if game['status'] == '✅':
+                curses.endwin()  # Restore terminal
+                run_game(game)
+                stdscr = curses.initscr()  # Reinitialize
+                curses.curs_set(0)
+        elif key == ord('q') or key == ord('Q'):
+            break
+
+def show_menu():
+    """Entry point for the menu system"""
+    try:
+        curses.wrapper(main_menu)
+    except KeyboardInterrupt:
+        pass

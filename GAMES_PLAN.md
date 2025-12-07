@@ -1,7 +1,7 @@
-# 100 CLI Games - Detailed Plan
+# 10 CLI Games - Curated Collection
 
 ## Project Overview
-這是一個為期 100 天的挑戰，每天創建一個命令行小遊戲。所有遊戲使用 Python 開發，並能在終端機中運行。
+精選 10 個最適合命令行環境的小遊戲。專注於品質、可玩性和使用者體驗，只選擇真正適合純文字環境的遊戲類型。
 
 ## Design Principles 設計原則
 
@@ -16,29 +16,69 @@
 - **rich**: 美化終端輸出
 - **colorama**: 跨平台顏色支援
 
-## Complete Game List (100 Games)
+## Complete Game List (10 Games)
 
-### Week 1: Classic Arcade (經典街機)
+### Classic Action (經典動作) - 6 Games
 1. ✅ **Breakout** - 打磚塊遊戲，控制板子接球打磚塊
 2. ✅ **Snake** - 貪吃蛇，吃食物長大避免撞牆
 3. ✅ **Pong** - 雙人乒乓球遊戲
 4. ✅ **Space Invaders** - 太空侵略者射擊遊戲
 5. ✅ **Tetris** - 俄羅斯方塊
 6. ✅ **Pac-Man** - 小精靈迷宮遊戲
-7. **Asteroids** - 小行星射擊遊戲
 
-### Week 2: Puzzle Games (益智遊戲)
-8. **2048** - 數字合併益智遊戲
-9. **Minesweeper** - 踩地雷
-10. **Sudoku** - 數獨
-11. **Sokoban** - 推箱子
-12. **Tower of Hanoi** - 河內塔
-13. **Lights Out** - 關燈遊戲
-14. **Nonogram** - 數織
+### Puzzle & Logic (益智邏輯) - 4 Games
+7. ⏳ **2048** - 數字合併益智遊戲（完美適合CLI）
+8. ⏳ **Minesweeper** - 踩地雷（經典邏輯遊戲）
+9. ⏳ **Wordle** - 猜單字遊戲（文字遊戲最佳代表）
+10. ⏳ **Sokoban** - 推箱子（回合制，視覺清晰）
 
-### Week 3: Word Games (文字遊戲)
-15. **Hangman** - 猜單字遊戲
-16. **Wordle** - 猜單字並提供提示
+## 為什麼選這 4 個？
+
+### Game 7: 2048
+**理由：**
+- 完美適合方格顯示
+- 數字清晰易讀
+- 簡單的方向鍵控制
+- 視覺回饋直觀
+- 無需即時反應
+
+### Game 8: Minesweeper
+**理由：**
+- 經典邏輯遊戲
+- 回合制，不需要快速反應
+- 方格介面適合終端
+- 數字提示系統清晰
+- 策略性強
+
+### Game 9: Wordle
+**理由：**
+- 純文字遊戲的最佳代表
+- 顏色回饋系統完美
+- 每日挑戰模式
+- 簡單但有趣
+- 目前很流行
+
+### Game 10: Sokoban (推箱子)
+**理由：**
+- 回合制，可以慢慢思考
+- 方格地圖清晰
+- 箱子和目標視覺明確
+- 經典益智遊戲
+- 關卡系統容易擴展
+
+## 放棄的遊戲類型
+
+### 不適合 CLI 的遊戲：
+- ❌ **Asteroids** - 需要流暢物理和大小感
+- ❌ 大部分射擊遊戲 - 需要精確瞄準
+- ❌ 賽車遊戲 - 需要速度感
+- ❌ 複雜 RPG - 視覺內容過多
+- ❌ 即時戰略 - 需要複雜 UI
+
+### 已完成的遊戲分析：
+✅ **成功的**：Snake, Tetris, Pac-Man（簡單、清晰、好玩）
+✅ **可以的**：Breakout, Pong, Space Invaders（動作簡單）
+❌ **失敗的**：Asteroids（物理和視覺限制）
 17. **Crossword** - 填字遊戲
 18. **Anagram** - 字母重組
 19. **Boggle** - 字母方格找字
@@ -230,9 +270,11 @@ if __name__ == "__main__":
 歡迎提交 Pull Request 或提出建議！
 
 ## Progress Tracking 進度追蹤
-- Completed: 6/100 ✅
-- In Progress: 0/100 🚧
-- Planned: 94/100 ⏳
+- Completed: 6/10 ✅ (60%)
+- In Progress: 0/10 🚧
+- Planned: 4/10 ⏳ (40%)
+
+**Total**: 10 精選遊戲（專注品質勝過數量）
 
 ---
-**Last Updated**: 2025-12-06 (Day 6)
+**Last Updated**: 2025-12-07 (Restructured to 10 curated games)
