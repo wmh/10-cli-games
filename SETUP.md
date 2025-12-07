@@ -96,7 +96,7 @@ Make sure your terminal window is at least 80x30 characters for the best experie
 
 ### Project Structure
 ```
-100-cli-games/
+10-cli-games/
 ├── main.py              # Main entry point
 ├── games/               # Individual game modules
 ├── utils/               # Shared utilities

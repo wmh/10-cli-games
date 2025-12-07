@@ -27,7 +27,7 @@
 6. ✅ **Pac-Man** - 小精靈迷宮遊戲
 
 ### Puzzle & Logic (益智邏輯) - 4 Games
-7. ⏳ **2048** - 數字合併益智遊戲（完美適合CLI）
+7. ✅ **2048** - 數字合併益智遊戲（完美適合CLI）
 8. ⏳ **Minesweeper** - 踩地雷（經典邏輯遊戲）
 9. ⏳ **Wordle** - 猜單字遊戲（文字遊戲最佳代表）
 10. ⏳ **Sokoban** - 推箱子（回合制，視覺清晰）
@@ -202,7 +202,7 @@
 
 ## File Structure 檔案結構
 ```
-100-cli-games/
+10-cli-games/
 ├── main.py                          # 主程式入口
 ├── requirements.txt                 # Python 依賴
 ├── README.md                        # 專案說明
@@ -270,9 +270,9 @@ if __name__ == "__main__":
 歡迎提交 Pull Request 或提出建議！
 
 ## Progress Tracking 進度追蹤
-- Completed: 6/10 ✅ (60%)
+- Completed: 7/10 ✅ (70%)
 - In Progress: 0/10 🚧
-- Planned: 4/10 ⏳ (40%)
+- Planned: 3/10 ⏳ (30%)
 
 **Total**: 10 精選遊戲（專注品質勝過數量）
 
